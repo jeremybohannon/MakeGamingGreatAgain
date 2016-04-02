@@ -9,15 +9,19 @@ app.get('/', function(req, res){
 });
 
 app.get('/stylesheet.css', function(req, res){
-  res.sendFile(path.join(__dirname + '/stylesheet.css'));
+  res.sendFile(path.join(__dirname + '/styles/stylesheet.css'));
 });
 
 app.get('/hat.png', function(req, res){
-  res.sendFile(path.join(__dirname + '/hat.png'));
+  res.sendFile(path.join(__dirname + '/resources/hat.png'));
+});
+
+app.get('/hair.png', function(req, res){
+  res.sendFile(path.join(__dirname + '/resources/hair.png'));
 });
 
 app.get('/app.js', function(req, res){
-  res.sendFile(path.join(__dirname + '/app.js'));
+  res.sendFile(path.join(__dirname + '/app/app.js'));
 });
 
 
