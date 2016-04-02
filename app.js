@@ -20,6 +20,7 @@ window.addEventListener('load', function () {
     fb.set({
       count: count++
     });
+    updateSupporters();
   };
 
   setInterval(function(){
