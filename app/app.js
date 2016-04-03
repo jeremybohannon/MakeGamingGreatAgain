@@ -99,7 +99,7 @@ window.addEventListener('load', function () {
   btnHair.onclick = function() {
     if(count >= hairCount){
       count -= hairCount;
-      hairCount += Math.ceil(hairCount / 4);
+      hairCount += Math.ceil(hairCount / 6);
       console.log(hairPer);
       if(hairPer == 0.00){
         hairPer = .1;
@@ -116,7 +116,7 @@ window.addEventListener('load', function () {
   btnChina.onclick = function() {
     if(count >= chinaCount){
       count -= chinaCount;
-      chinaCount += Math.ceil(chinaCount / 4);
+      chinaCount += Math.ceil(chinaCount / 5);
       if(chinaPer == 0.00){
         chinaPer = 1;
       } else {
@@ -148,23 +148,21 @@ window.addEventListener('load', function () {
   btnRemark.onclick = function() {
     if(count >= remarkCount){
       count -= remarkCount;
-      remarkCount += Math.ceil(remarkCount / 4);
-      if(remarkPer == 0.00){
+      remarkCount += Math.ceil(remarkCount / 3);
         remarkPer = 100;
       } else {
         remarkPer += remarkPer * 3;
       }
       updateHTML();
       update();
-    }
-  };
+    };
 
   btnJoke.style.cursor = 'pointer';
 
   btnJoke.onclick = function() {
     if(count >= jokeCount){
       count -= jokeCount;
-      jokeCount += Math.ceil(jokeCount / 4);
+      jokeCount += Math.ceil(jokeCount / 2);
       if(jokePer == 0.00){
         jokePer = 10000;
       } else {
