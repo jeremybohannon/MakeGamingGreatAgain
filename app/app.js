@@ -14,7 +14,10 @@ window.addEventListener('load', function () {
   hairPer = chinaPer = wallPer = remarkPer = jokePer = perCount = 0.00;
 
   var account;
-   account = prompt("Please enter account name: ");
+   do{
+    account = prompt("Please enter account name: ");
+    if(account === "") alert("You pressed ok, but the input box was empty... try again...")
+   }while( account === "");
 
    var fb = new Firebase("makegaminggreat.firebaseio.com/users/" + account );
 
