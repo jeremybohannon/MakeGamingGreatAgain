@@ -16,7 +16,8 @@ window.addEventListener('load', function () {
   var account;
    do{
     account = prompt("Please enter account name: ");
-    if(account === "") alert("You pressed ok, but the input box was empty... try again...")
+    if(account === "") alert("You pressed ok, but the input box was emptym your account is: " + "Default_Name")
+    if(!account) account = "Default_Name";
    }while( account === "");
 
    var fb = new Firebase("makegaminggreat.firebaseio.com/users/" + account );
@@ -189,10 +190,6 @@ window.addEventListener('load', function () {
       count += perCount;
       perCount = Math.floor(percount * 100) / 100;
 
-
-
-      console.log(perCount);
-
   };
 
   function updateHTML(){
@@ -238,4 +235,6 @@ window.addEventListener('load', function () {
       per: perCount
     });
   };
+  
+  
 });
