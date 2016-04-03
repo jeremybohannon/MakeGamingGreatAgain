@@ -12,9 +12,7 @@ app.get('/stylesheet.css', function(req, res){
   res.sendFile(path.join(__dirname + '/styles/stylesheet.css'));
 });
 
-app.get('/hat.png', function(req, res){
-  res.sendFile(path.join(__dirname + '/resources/hat.png'));
-});
+app.use('/resources', express.static(path.join(__dirname + '/resources')));
 
 app.get('/hair.png', function(req, res){
   res.sendFile(path.join(__dirname + '/resources/hair.png'));

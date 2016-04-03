@@ -5,16 +5,39 @@ window.addEventListener('load', function () {
   var china = document.getElementById("china");
   var wall = document.getElementById("wall");
   var remark = document.getElementById("remark");
+  var joke = document.getElementById("joke");
+  var per = document.getElementById("supportersPer");
 
 
   var fb = new Firebase("https://makegamesgreatagaib.firebaseio.com/");
 
   var count;
-  var hairCount, chinaCount, wallCount, remarkCount;
+  var hairCount, chinaCount, wallCount, remarkCount, jokeCount, perCount;
+  var hairPer, chinaPer, wallPer, remarkPer, jokePer;
+  hairPer = chinaPer = wallPer = remarkPer = jokePer = 0;
 
+//  var account;
+  //if(confirm("Do you have an account?")){
+  //  account = prompt("Please enter account name: ");
+
+//  } else{
+    fb.set({
+      count: 0,
+      hair: 15,
+      china: 100,
+      wall: 1000,
+      remark: 12000,
+      joke: 24000,
+      per: 0
+    });
+  //}
 
   fb.child("count").on("value", function(data){
     count = data.val();
+  });
+
+  fb.child("per").on("value", function(data){
+    perCount = data.val();
   });
 
   fb.child("hair").on("value", function(data){
@@ -31,6 +54,10 @@ window.addEventListener('load', function () {
 
   fb.child("remark").on("value", function(data){
     remarkCount = data.val();
+  });
+
+  fb.child("joke").on("value", function(data){
+    jokeCount = data.val();
         updateHTML();
   });
 
@@ -42,40 +69,145 @@ window.addEventListener('load', function () {
     updateHTML();
   };
 
-  console.log(btnHair);
-
   btnHair.style.cursor = 'pointer';
 
-  btnHair.onClick = function() {
-      console.log('test');
+  btnHair.onclick = function() {
+    if(count >= hairCount){
+      count -= hairCount;
+      hairCount += Math.ceil(hairCount / 4);
+      if(hairPer == 0){
+        hairPer = .1;
+      } else {
+        hairPer += hairPer *.2;
+      }
+      update();
+      updateHTML();
+    }
+  };
+
+  btnChina.style.cursor = 'pointer';
+
+  btnChina.onclick = function() {
+    if(count >= chinaCount){
+      count -= chinaCount;
+      chinaCount += Math.ceil(chinaCount / 4);
+      if(chinaPer == 0){
+        chinaPer = 1;
+      } else {
+        chinaPer += chinaPer *.5;
+      }
+      update();
+      updateHTML();
+    }
+  };
+
+  btnWall.style.cursor = 'pointer';
+
+  btnWall.onclick = function() {
+    if(count >= wallCount){
+      count -= wallCount;
+      wallCount += Math.ceil(wallCount / 4);
+      if(wallPer == 0){
+        wallPer = 30;
+      } else {
+        wallPer += wallPer *2;
+      }
+      update();
+      updateHTML();
+    }
+  };
+
+  btnRemark.style.cursor = 'pointer';
+
+  btnRemark.onclick = function() {
+    if(count >= remarkCount){
+      count -= remarkCount;
+      remarkCount += Math.ceil(remarkCount / 4);
+      if(remarkPer == 0){
+        remarkPer = 100;
+      } else {
+        remarkPer += remarkPer * 3;
+      }
+      update();
+      updateHTML();
+    }
+  };
+
+  btnJoke.style.cursor = 'pointer';
+
+  btnJoke.onclick = function() {
+    if(count >= jokeCount){
+      count -= jokeCount;
+      jokeCount += Math.ceil(jokeCount / 4);
+      if(jokePer == 0){
+        jokePer = 10000;
+      } else {
+        jokePer += jokePer * 5;
+      }
+      update();
+      updateHTML();
+    }
   };
 
   setInterval(function(){
     calculateCount();
     updateHTML();
     update();
-  }, 6000);
+  }, 1000);
 
 
   function calculateCount(){
-    count++;
+    perCount = hairPer + chinaPer + wallPer + remarkPer + jokePer;
+    perCount = Math.round(perCount * 100) / 100
+    count += perCount;
   };
 
   function updateHTML(){
-    supporters.innerHTML = count;
+    supporters.innerHTML = Math.floor(count);
     hair.innerHTML = hairCount;
     china.innerHTML = chinaCount;
     wall.innerHTML = wallCount;
     remark.innerHTML = remarkCount;
+    joke.innerHTML = jokeCount;
+    per.innerHTML = perCount;
+
+    if(hairCount > count){
+      hair.style.color = "#f66";
+    } else {
+      hair.style.color = "lightgrey";
+    }
+    if(chinaCount > count){
+      china.style.color = "#f66";
+    } else {
+      china.style.color = "lightgrey";
+    }
+    if(wallCount > count){
+      wall.style.color = "#f66";
+    } else {
+      wall.style.color = "lightgrey";
+    }
+    if(remarkCount > count){
+      remark.style.color = "#f66";
+    } else {
+      remark.style.color = "lightgrey";
+    }
+    if(remarkCount > count){
+      joke.style.color = "#f66";
+    } else {
+      joke.style.color = "lightgrey";
+    }
+
   };
 
   function update(){
     fb.set({
-      count: count++,
+      count: count,
       hair: hairCount,
       china: chinaCount,
       wall: wallCount,
-      remark: remarkCount
+      remark: remarkCount,
+      joke: jokeCount,
+      per: perCount
     });
   };
 
