@@ -9,63 +9,71 @@ window.addEventListener('load', function () {
   var per = document.getElementById("supportersPer");
 
 
-  var fb = new Firebase("https://makegamesgreatagaib.firebaseio.com/");
+//  var fb = new Firebase("https://makegamesgreatagaib.firebaseio.com/");
 
   var count;
   var hairCount, chinaCount, wallCount, remarkCount, jokeCount, perCount;
   var hairPer, chinaPer, wallPer, remarkPer, jokePer;
   hairPer = chinaPer = wallPer = remarkPer = jokePer = 0;
 
-//  var account;
-  //if(confirm("Do you have an account?")){
-  //  account = prompt("Please enter account name: ");
+  var account;
+   account = prompt("Please enter account name: ");
 
-//  } else{
-    fb.set({
-      count: 0,
-      hair: 15,
-      china: 100,
-      wall: 1000,
-      remark: 12000,
-      joke: 24000,
-      per: 0
+   var fb = new Firebase("https://testingthis123.firebaseio.com/users/" + account );
+
+   fb.once("value", function(snapshot){
+     if(!snapshot.exists()){
+       fb.set({
+         count: 0,
+         hair: 15,
+         china: 100,
+         wall: 1000,
+         remark: 12000,
+         joke: 24000,
+         per: 0
+       });
+       alert("Your game can now be accessed with name: " + account);
+     }
+   });
+
+
+    fb.child("count").on("value", function(data){
+      count = data.val();
     });
-  //}
 
-  fb.child("count").on("value", function(data){
-    count = data.val();
-  });
+    fb.child("per").on("value", function(data){
+      perCount = data.val();
+    });
 
-  fb.child("per").on("value", function(data){
-    perCount = data.val();
-  });
+    fb.child("hair").on("value", function(data){
+      hairCount = data.val();
+    });
 
-  fb.child("hair").on("value", function(data){
-    hairCount = data.val();
-  });
+    fb.child("china").on("value", function(data){
+      chinaCount = data.val();
+    });
 
-  fb.child("china").on("value", function(data){
-    chinaCount = data.val();
-  });
+    fb.child("wall").on("value", function(data){
+      wallCount = data.val();
+    });
 
-  fb.child("wall").on("value", function(data){
-    wallCount = data.val();
-  });
+    fb.child("remark").on("value", function(data){
+      remarkCount = data.val();
+    });
 
-  fb.child("remark").on("value", function(data){
-    remarkCount = data.val();
-  });
-
-  fb.child("joke").on("value", function(data){
-    jokeCount = data.val();
-        updateHTML();
-  });
+    fb.child("joke").on("value", function(data){
+      jokeCount = data.val();
+          updateHTML();
+    });
 
 
   hat.style.cursor = 'pointer';
 
   hat.onclick = function() {
     count++;
+    fb.update({
+      count: count
+    });
     updateHTML();
   };
 
@@ -151,8 +159,8 @@ window.addEventListener('load', function () {
 
   setInterval(function(){
     calculateCount();
-    updateHTML();
     update();
+    updateHTML();
   }, 1000);
 
 
@@ -171,36 +179,24 @@ window.addEventListener('load', function () {
     joke.innerHTML = jokeCount;
     per.innerHTML = perCount;
 
-    if(hairCount > count){
-      hair.style.color = "#f66";
-    } else {
-      hair.style.color = "lightgrey";
-    }
-    if(chinaCount > count){
-      china.style.color = "#f66";
-    } else {
-      china.style.color = "lightgrey";
-    }
-    if(wallCount > count){
-      wall.style.color = "#f66";
-    } else {
-      wall.style.color = "lightgrey";
-    }
-    if(remarkCount > count){
-      remark.style.color = "#f66";
-    } else {
-      remark.style.color = "lightgrey";
-    }
-    if(remarkCount > count){
-      joke.style.color = "#f66";
-    } else {
-      joke.style.color = "lightgrey";
-    }
+    validPurchase(hairCount, hair);
+    validPurchase(chinaCount, china);
+    validPurchase(wallCount, wall);
+    validPurchase(remarkCount, remark);
+    validPurchase(jokeCount, joke);
 
   };
 
+  function validPurchase(typeCount, type){
+    if(typeCount > count){
+      type.style.color = "#f66";
+    } else {
+      type.style.color = "lightgrey";
+    }
+  };
+
   function update(){
-    fb.set({
+    fb.update({
       count: count,
       hair: hairCount,
       china: chinaCount,
@@ -210,6 +206,4 @@ window.addEventListener('load', function () {
       per: perCount
     });
   };
-
-
 });
