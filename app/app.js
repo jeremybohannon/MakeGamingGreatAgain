@@ -8,13 +8,10 @@ window.addEventListener('load', function () {
   var joke = document.getElementById("joke");
   var per = document.getElementById("supportersPer");
 
-
-//  var fb = new Firebase("https://makegamesgreatagaib.firebaseio.com/");
-
   var count;
   var hairCount, chinaCount, wallCount, remarkCount, jokeCount, perCount;
   var hairPer, chinaPer, wallPer, remarkPer, jokePer;
-  hairPer = chinaPer = wallPer = remarkPer = jokePer = 0;
+  hairPer = chinaPer = wallPer = remarkPer = jokePer = perCount = 0;
 
   var account;
    account = prompt("Please enter account name: ");
@@ -88,8 +85,8 @@ window.addEventListener('load', function () {
       } else {
         hairPer += hairPer *.2;
       }
-      update();
       updateHTML();
+      update();
     }
   };
 
@@ -104,8 +101,8 @@ window.addEventListener('load', function () {
       } else {
         chinaPer += chinaPer *.5;
       }
-      update();
       updateHTML();
+      update();
     }
   };
 
@@ -120,8 +117,8 @@ window.addEventListener('load', function () {
       } else {
         wallPer += wallPer *2;
       }
-      update();
       updateHTML();
+      update();
     }
   };
 
@@ -136,8 +133,8 @@ window.addEventListener('load', function () {
       } else {
         remarkPer += remarkPer * 3;
       }
-      update();
       updateHTML();
+      update();
     }
   };
 
@@ -152,8 +149,8 @@ window.addEventListener('load', function () {
       } else {
         jokePer += jokePer * 5;
       }
-      update();
       updateHTML();
+      update();
     }
   };
 
@@ -194,8 +191,11 @@ window.addEventListener('load', function () {
       type.style.color = "lightgrey";
     }
   };
+  
+
 
   function update(){
+  console.log(perCount);
     fb.update({
       count: count,
       hair: hairCount,

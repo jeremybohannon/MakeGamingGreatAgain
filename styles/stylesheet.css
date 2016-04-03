@@ -79,7 +79,7 @@ body{
   margin: 0 auto;
   height: auto;
   padding-top: 250px;
-  background:  url(http://localhost/resources/hat.png) no-repeat;
+  background:  url(/resources/hat.png) no-repeat;
   background-size: 100% 100%;
 
   -webkit-transition: -webkit-transform .1s ease-in-out;
@@ -92,28 +92,33 @@ body{
 }
 
 .hairClass {
-  background:  url(http://localhost/resources/hair.png) no-repeat;
+  background:  url(/resources/hair.png) no-repeat;
 }
 .chinaClass {
-  background:  url(http://localhost/resources/china.png) no-repeat;
+  background:  url(/resources/china.png) no-repeat;
 }
 .wallClass {
-  background:  url(http://localhost/resources/wall.png) no-repeat;
+  background:  url(/resources/wall.png) no-repeat;
 }
 .remarkClass {
-  background:  url(http://localhost/resources/remark.png) no-repeat;
+  background:  url(/resources/remark.png) no-repeat;
 }
 
 .jokeClass {
-  background:  url(http://localhost/resources/joke.png) no-repeat;
+  background:  url(/resources/joke.png) no-repeat;
+}
+
+.storeRow{
+  padding: 10px;
 }
 
 .btn{
   width: 10%;
-  height: 5%;
+  height: 60px;
   margin: 0;
   padding-top: 55px;
   background-size: 100% auto;
+  margin-left: 120px;
   display: inline;
   float: left;
   margin-left: 50px;
