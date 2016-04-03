@@ -11,12 +11,12 @@ window.addEventListener('load', function () {
   var count;
   var hairCount, chinaCount, wallCount, remarkCount, jokeCount, perCount;
   var hairPer, chinaPer, wallPer, remarkPer, jokePer;
-  hairPer = chinaPer = wallPer = remarkPer = jokePer = perCount = 0;
+  hairPer = chinaPer = wallPer = remarkPer = jokePer = perCount = 0.00;
 
   var account;
    account = prompt("Please enter account name: ");
 
-   var fb = new Firebase("https://testingthis123.firebaseio.com/users/" + account );
+   var fb = new Firebase("makegaminggreat.firebaseio.com/users/" + account );
 
    fb.once("value", function(snapshot){
      if(!snapshot.exists()){
@@ -27,7 +27,12 @@ window.addEventListener('load', function () {
          wall: 1000,
          remark: 12000,
          joke: 24000,
-         per: 0
+         per: 0,
+         hairPer: 0,
+         chinaPer: 0,
+         wallPer: 0,
+         remarkPer: 0,
+         jokePer: 0
        });
        alert("Your game can now be accessed with name: " + account);
      }
@@ -45,22 +50,37 @@ window.addEventListener('load', function () {
     fb.child("hair").on("value", function(data){
       hairCount = data.val();
     });
+    fb.child("hairPer").on("value", function(data){
+      hairPer = data.val();
+    });
 
     fb.child("china").on("value", function(data){
       chinaCount = data.val();
+    });
+    fb.child("chinaPer").on("value", function(data){
+      chinaPer = data.val();
     });
 
     fb.child("wall").on("value", function(data){
       wallCount = data.val();
     });
+    fb.child("wallPer").on("value", function(data){
+      wallPer = data.val();
+    });
 
     fb.child("remark").on("value", function(data){
       remarkCount = data.val();
+    });
+    fb.child("remarkPer").on("value", function(data){
+      remarkPer = data.val();
     });
 
     fb.child("joke").on("value", function(data){
       jokeCount = data.val();
           updateHTML();
+    });
+    fb.child("jokePer").on("value", function(data){
+      jokePer = data.val();
     });
 
 
@@ -80,7 +100,8 @@ window.addEventListener('load', function () {
     if(count >= hairCount){
       count -= hairCount;
       hairCount += Math.ceil(hairCount / 4);
-      if(hairPer == 0){
+      console.log(hairPer);
+      if(hairPer == 0.00){
         hairPer = .1;
       } else {
         hairPer += hairPer *.2;
@@ -96,7 +117,7 @@ window.addEventListener('load', function () {
     if(count >= chinaCount){
       count -= chinaCount;
       chinaCount += Math.ceil(chinaCount / 4);
-      if(chinaPer == 0){
+      if(chinaPer == 0.00){
         chinaPer = 1;
       } else {
         chinaPer += chinaPer *.5;
@@ -112,7 +133,7 @@ window.addEventListener('load', function () {
     if(count >= wallCount){
       count -= wallCount;
       wallCount += Math.ceil(wallCount / 4);
-      if(wallPer == 0){
+      if(wallPer == 0.00){
         wallPer = 30;
       } else {
         wallPer += wallPer *2;
@@ -128,7 +149,7 @@ window.addEventListener('load', function () {
     if(count >= remarkCount){
       count -= remarkCount;
       remarkCount += Math.ceil(remarkCount / 4);
-      if(remarkPer == 0){
+      if(remarkPer == 0.00){
         remarkPer = 100;
       } else {
         remarkPer += remarkPer * 3;
@@ -144,7 +165,7 @@ window.addEventListener('load', function () {
     if(count >= jokeCount){
       count -= jokeCount;
       jokeCount += Math.ceil(jokeCount / 4);
-      if(jokePer == 0){
+      if(jokePer == 0.00){
         jokePer = 10000;
       } else {
         jokePer += jokePer * 5;
@@ -162,9 +183,15 @@ window.addEventListener('load', function () {
 
 
   function calculateCount(){
-    perCount = hairPer + chinaPer + wallPer + remarkPer + jokePer;
-    perCount = Math.round(perCount * 100) / 100
-    count += perCount;
+
+      percount = hairPer + chinaPer + wallPer + remarkPer + jokePer;
+      count += perCount;
+      perCount = Math.floor(percount * 100) / 100;
+
+
+
+      console.log(perCount);
+
   };
 
   function updateHTML(){
@@ -176,26 +203,25 @@ window.addEventListener('load', function () {
     joke.innerHTML = jokeCount;
     per.innerHTML = perCount;
 
-    validPurchase(hairCount, hair);
-    validPurchase(chinaCount, china);
-    validPurchase(wallCount, wall);
-    validPurchase(remarkCount, remark);
-    validPurchase(jokeCount, joke);
+    validPerase(hairCount, hair);
+    validPerase(chinaCount, china);
+    validPerase(wallCount, wall);
+    validPerase(remarkCount, remark);
+    validPerase(jokeCount, joke);
 
   };
 
-  function validPurchase(typeCount, type){
+  function validPerase(typeCount, type){
     if(typeCount > count){
       type.style.color = "#f66";
     } else {
       type.style.color = "lightgrey";
     }
   };
-  
+
 
 
   function update(){
-  console.log(perCount);
     fb.update({
       count: count,
       hair: hairCount,
@@ -203,6 +229,11 @@ window.addEventListener('load', function () {
       wall: wallCount,
       remark: remarkCount,
       joke: jokeCount,
+      hairPer: hairPer,
+      chinaPer: chinaPer,
+      wallPer: wallPer,
+      remarkPer: remarkPer,
+      jokePer: jokePer,
       per: perCount
     });
   };
