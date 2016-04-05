@@ -20,6 +20,8 @@ window.addEventListener('load', function () {
     if(!account) account = "Default_Name";
    }while( account === "");
 
+   account = account.toLowerCase();
+
    var fb = new Firebase("makegaminggreat.firebaseio.com/users/" + account );
 
    fb.once("value", function(snapshot){
@@ -41,7 +43,6 @@ window.addEventListener('load', function () {
        alert("Your game can now be accessed with name: " + account);
      }
    });
-
 
     fb.child("count").on("value", function(data){
       count = data.val();
@@ -176,6 +177,14 @@ window.addEventListener('load', function () {
       update();
     }
   };
+
+  // var buttons = [btnHair, btnChina, btnWall, btnRemark, btnJoke];
+
+  // for(var i = 0; i < buttons.length; i++){
+  //   buttons[i].addEventListener("click", function(){
+  //     test();
+  //   });
+  // };
 
   setInterval(function(){
     calculateCount();
