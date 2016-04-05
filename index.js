@@ -8,19 +8,15 @@ app.get('/', function(req, res){
 	res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-app.get('/stylesheet.css', function(req, res){
-  res.sendFile(path.join(__dirname + '/styles/stylesheet.css'));
+app.get('/admin', function(req, res){
+	res.sendFile(path.join(__dirname + '/admin.html'));
 });
+
+app.use('/styles', express.static(path.join(__dirname + '/styles')));
 
 app.use('/resources', express.static(path.join(__dirname + '/resources')));
 
-app.get('/hair.png', function(req, res){
-  res.sendFile(path.join(__dirname + '/resources/hair.png'));
-});
-
-app.get('/app.js', function(req, res){
-  res.sendFile(path.join(__dirname + '/app/app.js'));
-});
+app.use('/app', express.static(path.join(__dirname + '/app')));
 
 
 var server = app.listen(8080, function () {
