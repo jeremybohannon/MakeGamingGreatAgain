@@ -17,9 +17,6 @@ window.addEventListener('load', function () {
           var reset = document.getElementById("btnReset");
           reset.style.visibility = "visible";
           
-          console.log('test');
-          
-          
           btnReset.style.cursor = "pointer";
           
           btnReset.onclick = function() 
