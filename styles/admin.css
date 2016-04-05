@@ -5,4 +5,15 @@
 .btn{
 	margin: auto;
 	float: none;
+	padding-top: 0px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 33px;
+
+	background-color: lightgrey;
+	color: #0066ba;
+}
+
+.btn:hover{
+	background-color: #3795E2;
+	color: lightgrey;
 }

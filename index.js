@@ -9,7 +9,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/admin', function(req, res){
-	res.sendFile(path.join(__dirname + '/admin.html'));
+	res.sendFile(path.join(__dirname + '/views/admin.html'));
 });
 
 app.use('/styles', express.static(path.join(__dirname + '/styles')));
