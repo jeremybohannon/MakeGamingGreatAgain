@@ -11,6 +11,7 @@ window.addEventListener('load', function () {
   var count;
   var hairCount, chinaCount, wallCount, remarkCount, jokeCount, perCount;
   var hairPer, chinaPer, wallPer, remarkPer, jokePer;
+  var hairBought;
   hairPer = chinaPer = wallPer = remarkPer = jokePer = perCount = 0.00;
 
   var account;
@@ -38,7 +39,8 @@ window.addEventListener('load', function () {
          chinaPer: 0,
          wallPer: 0,
          remarkPer: 0,
-         jokePer: 0
+         jokePer: 0,
+         hairBought: 0
        });
        alert("Your game can now be accessed with name: " + account);
      }
@@ -84,8 +86,13 @@ window.addEventListener('load', function () {
       jokeCount = data.val();
           updateHTML();
     });
+
     fb.child("jokePer").on("value", function(data){
       jokePer = data.val();
+    });
+
+    fb.child("hairBought").on("value", function(data){
+      hairBought = data.val();
     });
 
 
@@ -105,11 +112,15 @@ window.addEventListener('load', function () {
     if(count >= hairCount){
       count -= hairCount;
       hairCount += Math.ceil(hairCount / 6);
-      console.log(hairPer);
+      hairBought++;
       if(hairPer == 0.00){
         hairPer = .1;
       } else {
         hairPer += hairPer *.2;
+      }
+      if(hairBought == 10){
+        alert("Achievement Unlocked: " + "Barber Shop Extroidinair");
+        hairPer *= 10;
       }
       updateHTML();
       update();
@@ -141,7 +152,11 @@ window.addEventListener('load', function () {
       if(wallPer == 0.00){
         wallPer = 30;
       } else {
-        wallPer += wallPer *2;
+        if(wallPer > 400){
+          wallPer += wallPer * .5;
+        } else {
+          wallPer += wallPer *2;
+        }
       }
       updateHTML();
       update();
@@ -241,7 +256,8 @@ window.addEventListener('load', function () {
       wallPer: wallPer,
       remarkPer: remarkPer,
       jokePer: jokePer,
-      per: perCount
+      per: perCount,
+      hairBought: hairBought
     });
   };
 

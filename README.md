@@ -4,7 +4,7 @@
 
 
 
-<img width="550" src="http://i.imgur.com/6aki639.png"/>
+<img width="550" src="http://i.imgur.com/t8YOw5z.png"/>
 
 
 
